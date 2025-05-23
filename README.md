@@ -1,5 +1,5 @@
 # WeatherApp
-Welcome to the Weather App! This project is a simple and interactive web application that allows users to check the current weather conditions for any city. The app is built using HTML, CSS, and JavaScript, and it fetches real-time weather data from the OpenWeatherMap API
+Welcome to Franny's Weather App! This project is a simple and interactive web application that allows users to check the current weather conditions for any city. The app is built using HTML, CSS, and JavaScript, and it fetches real-time weather data from the OpenWeatherMap API
 
 Features:
 1. Search by City: Enter the name of a city to get its current weather information.
