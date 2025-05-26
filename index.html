@@ -13,6 +13,9 @@
                 spellcheck="false">
                 <button> <img src="images\search.png"> </button>
             </div>
+            <div class="error">
+                <p>invalid city name</p>
+            </div>
             <div class="weather">
                 <img src="images\rain.png" class="weather-icon">
                 <h1 class="temp">22°C</h1>
@@ -35,5 +38,64 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            const apiKey = "8538c00638cd4c034a97a91035df04cc";
+            const apiUrl = "https://api.weatherstack.com/current?query=";
+
+            const searchBox = document.querySelector(".search input");
+            const searchBtn = document.querySelector(".search button");
+            const weatherIcon = document.querySelector(".weather-icon")
+
+            async function checkWeather(city){
+                const response = await fetch(apiUrl + city + `&access_key=${apiKey}`);
+
+                var data = await response.json();
+
+                console.log(data);
+
+                
+                if(data.success == false){
+                    document.querySelector(".error").style.display = "block";
+                    document.querySelector(".weather").style.display = "none";
+                } else{
+
+                document.querySelector(".city").innerHTML = data.location.name;
+                document.querySelector(".temp").innerHTML = data.current.temperature + "°C";
+                document.querySelector(".humidity").innerHTML = data.current.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.current.wind_speed + " km/h";
+                
+                const rain = [389, 377, 365, 359, 314, 308, 302, 305, 299, 200, 176];
+                const snow = [395, 392, 371, 368, 356, 350, 338, 332, 329, 326, 323, 320, 317, 230, 227, 179];
+                const clouds = [122, 119, 116];
+                const clear = [113];
+                const drizzle = [386, 374, 362, 353, 296, 293, 284, 281, 266, 263, 185, 182];
+                const mist = [260, 248, 143];
+
+                if (rain.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/rain.png";
+                } else if (snow.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/snow.png";
+                } else if (clouds.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/clouds.png";
+                } else if (clear.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/clear.png";
+                } else if (drizzle.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/drizzle.png";
+                } else if (mist.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/mist.png";
+                }
+
+                document.querySelector(".weather").style.display = "block"; 
+                document.querySelector(".error").style.display = "none";
+
+                }
+            }
+
+            searchBtn.addEventListener("click", ()=> {
+                checkWeather(searchBox.value);
+            })
+
+        </script>
     </body>
 </html>
