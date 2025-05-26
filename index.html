@@ -13,9 +13,8 @@
                 spellcheck="false">
                 <button> <img src="images\search.png"> </button>
             </div>
-            <div>
-                <div class="error"></div>
-                <p>Invalid City Name</p>
+            <div class="error">
+                <p>invalid city name</p>
             </div>
             <div class="weather">
                 <img src="images\rain.png" class="weather-icon">
@@ -51,14 +50,15 @@
             async function checkWeather(city){
                 const response = await fetch(apiUrl + city + `&access_key=${apiKey}`);
 
-                if(response.status == '404'){
-                    document.querySelector(".error").style.display = "block"
-                    document.querySelector(".weather").style.display = "none"
-                }else{
-
                 var data = await response.json();
 
                 console.log(data);
+
+                
+                if(data.success == false){
+                    document.querySelector(".error").style.display = "block";
+                    document.querySelector(".weather").style.display = "none";
+                } else{
 
                 document.querySelector(".city").innerHTML = data.location.name;
                 document.querySelector(".temp").innerHTML = data.current.temperature + "°C";
@@ -70,13 +70,26 @@
                 const clouds = [122, 119, 116];
                 const clear = [113];
                 const drizzle = [386, 374, 362, 353, 296, 293, 284, 281, 266, 263, 185, 182];
-                const mist = [260, 248, 143]
+                const mist = [260, 248, 143];
 
-               
+                if (rain.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/rain.png";
+                } else if (snow.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/snow.png";
+                } else if (clouds.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/clouds.png";
+                } else if (clear.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/clear.png";
+                } else if (drizzle.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/drizzle.png";
+                } else if (mist.includes(data.current.weather_code)) {
+                    weatherIcon.src = "images/mist.png";
+                }
+
+                document.querySelector(".weather").style.display = "block"; 
                 document.querySelector(".error").style.display = "none";
 
                 }
-
             }
 
             searchBtn.addEventListener("click", ()=> {
