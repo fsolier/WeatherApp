@@ -76,8 +76,7 @@ body{
 .details{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
+    justify-content: space-around;
     margin-top: 50px;
 }
 .col{
@@ -89,9 +88,17 @@ body{
     width: 30px;
     margin-right: 10px;
 }
-.humidity, .wind{
+.humidity, .wind, .uv{
     font-size: 20px;
     margin-top: -6px;
+}
+.feels {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    justify-content: center;
+    padding-bottom: 15px;
+    margin-top: 0;
 }
 .weather{
     display: none;

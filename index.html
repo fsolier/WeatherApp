@@ -22,6 +22,10 @@
             <div class="weather">
                 <img src="images\rain.png" class="weather-icon">
                 <h1 class="temp">22°C</h1>
+                <div class="feels">
+                    <p>Feels like:&nbsp;</p>
+                    <p class="feels_temp">25°C</p>
+                </div>
                 <h2 class="city">New York</h2>
                 <div class="details">
                     <div class="col">
@@ -38,12 +42,19 @@
                             <p>Wind Speed</p>
                         </div>
                     </div>
+                    <div class="col">
+                        <img src="images\uv.png">
+                        <div>
+                            <p class="uv">4</p>
+                            <p>UV Index</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <script>
-            const apiKey = "8538c00638cd4c034a97a91035df04cc";
+            const apiKey = "283e54ec237d16aaeb03976ee530a000";
             const apiUrl = "https://api.weatherstack.com/current?query=";
 
             const searchBox = document.querySelector(".search input");
@@ -55,8 +66,6 @@
 
                 var data = await response.json();
 
-                console.log(data);
-
                 
                 if(data.success == false){
                     document.querySelector(".error").style.display = "block";
@@ -67,6 +76,8 @@
                 document.querySelector(".temp").innerHTML = data.current.temperature + "°C";
                 document.querySelector(".humidity").innerHTML = data.current.humidity + "%";
                 document.querySelector(".wind").innerHTML = data.current.wind_speed + " km/h";
+                document.querySelector(".feels_temp").innerHTML = data.current.feelslike + "°C";
+                document.querySelector(".uv").innerHTML = data.current.uv_index;
                 
                 const rain = [389, 377, 365, 359, 314, 308, 302, 305, 299, 200, 176];
                 const snow = [395, 392, 371, 368, 356, 350, 338, 332, 329, 326, 323, 320, 317, 230, 227, 179];
